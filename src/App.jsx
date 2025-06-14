@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import AtmCard from './components/blocks/AtmCard'
 import './App.css'
 
 // Header Component
@@ -141,26 +142,57 @@ const Hero = () => (
   </section>
 );
 
-// Project Card Component
-const ProjectCard = ({ image, title, description, link }) => (
-  <div className="project-card">
-    <img src={image} alt={title} />
-    <div className="project-card-content">
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <a href={link} className="project-link">View Component</a>
+// Component Modal
+const ComponentModal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="component-modal-overlay" onClick={onClose}>
+      <div className="component-modal" onClick={e => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={onClose}>×</button>
+        <div className="modal-content">
+          {children}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+// Project Card Component
+const ProjectCard = ({ image, title, description, link, onComponentSelect }) => {
+  const handleClick = (e) => {
+    // If the link is a component reference, render it
+    if (typeof link === 'object' && link.component) {
+      e.preventDefault();
+      onComponentSelect(link.component);
+    }
+    // Otherwise, it's a regular URL link and will navigate normally
+  };
+
+  return (
+    <div className="project-card">
+      <img src={image} alt={title} />
+      <div className="project-card-content">
+        <h3>{title}</h3>
+        <p>{description}</p>
+        {typeof link === 'object' && link.component ? (
+          <a href="#" onClick={handleClick} className="project-link">View Component</a>
+        ) : (
+          <a href={link} className="project-link">View Component</a>
+        )}
+      </div>
+    </div>
+  );
+};
 
 // Projects Section Component
-const Projects = () => {
+const Projects = ({ onComponentSelect }) => {
   const projects = [
     {
       image: "img/Screenshot 2024-06-13 185432.png",
       title: "Animated Card",
       description: "Interactive card that flips on clicking. Built with HTML, CSS, and JavaScript.",
-      link: "AtmCard/atm.html"
+      link: { component: 'atmCard' }
     },
     {
       image: "img/Screenshot 2024-06-13 185455.png",
@@ -236,6 +268,7 @@ const Projects = () => {
               title={project.title}
               description={project.description}
               link={project.link}
+              onComponentSelect={onComponentSelect}
             />
           ))}
         </div>
@@ -349,6 +382,8 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [baseTheme, setBaseTheme] = useState('zinc');
   const [accentTheme, setAccentTheme] = useState('blue');
+  const [activeComponent, setActiveComponent] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Initialize themes on component mount
   useEffect(() => {
@@ -385,6 +420,25 @@ function App() {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
 
+  const handleComponentSelect = (componentName) => {
+    setActiveComponent(componentName);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setActiveComponent(null);
+  };
+
+  const renderActiveComponent = () => {
+    switch (activeComponent) {
+      case 'atmCard':
+        return <AtmCard />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Header 
@@ -397,10 +451,56 @@ function App() {
       />
       <main>
         <Hero />
-        <Projects />
+        <Projects onComponentSelect={handleComponentSelect} />
         <Contact />
       </main>
       <Footer />
+
+      <ComponentModal isOpen={modalOpen} onClose={handleCloseModal}>
+        {renderActiveComponent()}
+      </ComponentModal>
+
+      {/* Add this CSS to your App.css file */}
+      <style jsx>{`
+        .component-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+        
+        .component-modal {
+          background-color: var(--background);
+          border-radius: 8px;
+          padding: 30px;
+          max-width: 90%;
+          max-height: 90vh;
+          overflow-y: auto;
+          position: relative;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-close-btn {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: var(--text);
+        }
+        
+        .modal-content {
+          margin-top: 10px;
+        }
+      `}</style>
     </>
   );
 }
