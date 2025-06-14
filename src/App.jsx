@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import AtmCard from './components/blocks/AtmCard'
 import Docs from './pages/Docs'
+import Nike from './components/websites/Nike'
 import './App.css'
 
 // Header Component with React Router Links
@@ -471,6 +472,8 @@ function App() {
         <Route path="/charts" element={<div className="container py-20">Charts Page (Coming Soon)</div>} />
         <Route path="/themes" element={<div className="container py-20">Themes Page (Coming Soon)</div>} />
         <Route path="/colors" element={<div className="container py-20">Colors Page (Coming Soon)</div>} />
+        <Route path="/nike" element={<Nike />} />
+        <Route path="*" element={<div className="container py-20">404 Not Found</div>} />
       </Routes>
       
       <Footer />
