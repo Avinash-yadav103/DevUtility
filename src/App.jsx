@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import AtmCard from './components/blocks/AtmCard'
+import Docs from './pages/Docs'
 import './App.css'
 
-// Header Component
+// Header Component with React Router Links
 const Header = ({ theme, toggleTheme, baseTheme, accentTheme, setBaseTheme, setAccentTheme }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -26,7 +28,7 @@ const Header = ({ theme, toggleTheme, baseTheme, accentTheme, setBaseTheme, setA
     <header className="header">
       <div className="header-container">
         <div className="header-left">
-          <a href="/" className="logo">
+          <Link to="/" className="logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L17 7H7L12 2Z" fill="currentColor" />
               <path d="M12 22L7 17H17L12 22Z" fill="currentColor" />
@@ -34,15 +36,15 @@ const Header = ({ theme, toggleTheme, baseTheme, accentTheme, setBaseTheme, setA
               <path d="M22 12L17 17V7L22 12Z" fill="currentColor" />
             </svg>
             <span>component/ui</span>
-          </a>
+          </Link>
           <nav className="main-nav">
             <ul>
-              <li><a href="#docs">Docs</a></li>
-              <li><a href="#components">Components</a></li>
-              <li><a href="#blocks">Blocks</a></li>
-              <li><a href="#charts">Charts</a></li>
-              <li><a href="#themes">Themes</a></li>
-              <li><a href="#colors">Colors</a></li>
+              <li><Link to="/docs">Docs</Link></li>
+              <li><Link to="/components">Components</Link></li>
+              <li><Link to="/blocks">Blocks</Link></li>
+              <li><Link to="/charts">Charts</Link></li>
+              <li><Link to="/themes">Themes</Link></li>
+              <li><Link to="/colors">Colors</Link></li>
             </ul>
           </nav>
         </div>
@@ -377,6 +379,17 @@ const getAccentColor = (accent) => {
   return colors[accent] || colors.blue;
 };
 
+// HomePage Component
+const HomePage = ({ onComponentSelect }) => {
+  return (
+    <main>
+      <Hero />
+      <Projects onComponentSelect={onComponentSelect} />
+      <Contact />
+    </main>
+  );
+};
+
 // Main App Component
 function App() {
   const [theme, setTheme] = useState('light');
@@ -449,11 +462,17 @@ function App() {
         setBaseTheme={setBaseTheme}
         setAccentTheme={setAccentTheme}
       />
-      <main>
-        <Hero />
-        <Projects onComponentSelect={handleComponentSelect} />
-        <Contact />
-      </main>
+      
+      <Routes>
+        <Route path="/" element={<HomePage onComponentSelect={handleComponentSelect} />} />
+        <Route path="/docs/*" element={<Docs theme={theme} />} />
+        <Route path="/components" element={<div className="container py-20">Components Page (Coming Soon)</div>} />
+        <Route path="/blocks" element={<div className="container py-20">Blocks Page (Coming Soon)</div>} />
+        <Route path="/charts" element={<div className="container py-20">Charts Page (Coming Soon)</div>} />
+        <Route path="/themes" element={<div className="container py-20">Themes Page (Coming Soon)</div>} />
+        <Route path="/colors" element={<div className="container py-20">Colors Page (Coming Soon)</div>} />
+      </Routes>
+      
       <Footer />
 
       <ComponentModal isOpen={modalOpen} onClose={handleCloseModal}>
