@@ -804,3 +804,229 @@
   .docs-content { padding: 1.5rem 1.25rem 4rem; }
   .doc-content h1 { font-size: 1.9rem; }
 }
+
+/* =========================================================================
+   Enhancements — filename code bars, anchors, steps, tabs, link cards
+   ========================================================================= */
+
+/* Page meta line under the H1 */
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.25rem 0 1.5rem;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+.doc-meta .dot { opacity: 0.4; }
+
+/* Hover anchor links on headings */
+.doc-content h2,
+.doc-content h3 { position: relative; }
+.heading-anchor {
+  position: absolute;
+  left: -1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  text-decoration: none;
+  color: var(--muted-foreground);
+  font-weight: 400;
+  transition: opacity 0.15s, color 0.15s;
+}
+.doc-content h2:hover .heading-anchor,
+.doc-content h3:hover .heading-anchor { opacity: 1; }
+.heading-anchor:hover { color: var(--primary); }
+
+/* Code block with a filename / title bar */
+.code-block.has-title { background-color: #0b1021; }
+.code-filename {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.76rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #9fb0c3;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.code-filename .file-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #4b5563; }
+.code-filename .file-lang {
+  margin-left: auto;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7a8d;
+}
+.code-block.has-title .code-copy-btn { top: 6px; }
+
+/* Command (package-manager) tabs */
+.cmd-tabs {
+  margin: 1.25rem 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #0b1021;
+}
+.cmd-tablist {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.4rem 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.cmd-tab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #9fb0c3;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.cmd-tab:hover { color: #fff; }
+.cmd-tab.active { color: #fff; border-bottom-color: var(--primary); }
+
+/* Numbered step guide */
+.doc-steps {
+  position: relative;
+  margin: 1.5rem 0;
+  padding-left: 2.2rem;
+}
+.doc-steps::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background-color: var(--border);
+}
+.doc-step { position: relative; padding-bottom: 1.75rem; }
+.doc-step:last-child { padding-bottom: 0; }
+.doc-step .step-num {
+  position: absolute;
+  left: -2.2rem;
+  top: -2px;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.doc-step .step-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+.doc-step .code-block,
+.doc-step .cmd-tabs { margin: 0.75rem 0 0; }
+
+/* Link cards (navigation grid) */
+.link-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+.link-card {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--card);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.link-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.link-card .lc-icon { font-size: 1.35rem; }
+.link-card .lc-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0.3rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+.link-card .lc-title .arrow { color: var(--muted-foreground); transition: transform 0.2s; }
+.link-card:hover .lc-title .arrow { transform: translateX(3px); color: var(--primary); }
+.link-card .lc-desc { margin: 0; font-size: 0.83rem; color: var(--muted-foreground); line-height: 1.5; }
+
+/* FAQ accordion */
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.1rem;
+  background-color: var(--card);
+  border: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+.faq-q .faq-chevron { transition: transform 0.2s; color: var(--muted-foreground); flex-shrink: 0; }
+.faq-item.open .faq-q .faq-chevron { transform: rotate(180deg); }
+.faq-a {
+  padding: 0 1.1rem 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+}
+
+/* Do / Don't grid */
+.dodont {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.dodont-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.dodont-card .dd-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.dodont-card.do { border-color: color-mix(in srgb, #10b981 35%, var(--border)); }
+.dodont-card.do .dd-head { color: #059669; }
+.dodont-card.dont { border-color: color-mix(in srgb, #ef4444 35%, var(--border)); }
+.dodont-card.dont .dd-head { color: #dc2626; }
+.dodont-card ul { margin: 0; padding-left: 1.1rem; }
+
+/* Keyboard hint in the sidebar search (already styled .search-box kbd) */
