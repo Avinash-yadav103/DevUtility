@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PageShell, Section } from './showcase/Parts';
+import { PageShell, Section, CodeBlock } from './showcase/Parts';
 
 const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
@@ -75,6 +75,23 @@ const Colors = () => {
           These tokens are defined in <code style={{ fontFamily: 'ui-monospace, monospace' }}>src/App.css</code> and
           update automatically when you change the base palette, accent, or toggle dark mode.
         </p>
+      </Section>
+
+      <Section title="Usage" description="Reference the tokens directly in your CSS — never hard-code a hex.">
+        <CodeBlock
+          language="css"
+          code={`.button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card {
+  background-color: var(--card);
+  color: var(--foreground);
+}`}
+        />
       </Section>
     </PageShell>
   );

@@ -110,6 +110,123 @@
   background-color: var(--background);
 }
 
+/* Toolbar with Preview / Code tabs + copy button */
+.demo-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.55rem 0.45rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
+}
+
+.demo-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.demo-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 7px;
+  background-color: var(--secondary);
+}
+
+.demo-tabs button {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.73rem;
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.demo-tabs button.active {
+  background-color: var(--background);
+  color: var(--foreground);
+  box-shadow: var(--shadow);
+}
+
+.demo-copy {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+.demo-copy:hover {
+  color: var(--foreground);
+  background-color: var(--secondary);
+}
+
+.demo-copy.copied {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.demo-codewrap {
+  background-color: #0b1021;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.demo-codewrap pre {
+  margin: 0 !important;
+  background: transparent !important;
+  font-size: 0.8rem !important;
+}
+
+/* Standalone code block (Themes / Colors) */
+.showcase .code-snippet {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #0b1021;
+  margin: 0;
+}
+
+.showcase .code-snippet pre {
+  margin: 0 !important;
+  background: transparent !important;
+  font-size: 0.8rem !important;
+}
+
+.showcase .code-snippet .demo-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
+.showcase .code-snippet .demo-copy:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
 /* =========================================================================
    Buttons
    ========================================================================= */
