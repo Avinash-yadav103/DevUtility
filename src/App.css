@@ -1,20 +1,17 @@
 @import "tailwindcss";
-@tailwind utilities;
-
-/* ✅ Custom components (optional) */
-@layer components {
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700;
-  }
-}
 
 /* ✅ Custom utilities (optional) */
-@layer utilities {
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
+@utility rotate-y-180 {
+  transform: rotateY(180deg);
 }
 
+/*
+ * Legacy component-library styles live in the `base` layer so that Tailwind
+ * utility classes (used by the Gym/Coffee/Nike full-page components) can
+ * override them. Without this, unlayered global rules like `h1`, `h2`, `a`
+ * would beat every Tailwind class in v4's cascade-layer model.
+ */
+@layer base {
 
 :root {
   /* Base variables */
@@ -893,3 +890,5 @@ h2 {
   --primary-foreground: #ffffff;
   --ring: #f472b6;
 }
+
+} /* end @layer base */

@@ -3,6 +3,15 @@ import { Routes, Route, Link } from 'react-router-dom'
 import AtmCard from './components/blocks/AtmCard'
 import Docs from './pages/Docs'
 import Nike from './components/websites/Nike'
+import Gym from './components/websites/Gym'
+import CoffeeShop from './components/websites/CoffeeShop'
+import Components from './pages/Components'
+import Blocks from './pages/Blocks'
+import Charts from './pages/Charts'
+import Themes from './pages/Themes'
+import Colors from './pages/Colors'
+import { hero as gymHero } from './assets/components/website/gym'
+import { hero as coffeeHero } from './assets/components/website/coffee'
 import './App.css'
 
 // Header Component with React Router Links
@@ -256,6 +265,18 @@ const Projects = ({ onComponentSelect }) => {
       title: "Travel Website",
       description: "Travel Website Template.",
       link: "Travel/index.html"
+    },
+    {
+      image: gymHero,
+      title: "Gym Website",
+      description: "FITZONE Gym Website with programs, schedule, trainers, and pricing.",
+      link: "/gym"
+    },
+    {
+      image: coffeeHero,
+      title: "Coffee Shop",
+      description: "Drinko Coffee Shop with menu, new drinks, and delivery.",
+      link: "/coffee"
     }
   ];
 
@@ -467,12 +488,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage onComponentSelect={handleComponentSelect} />} />
         <Route path="/docs/*" element={<Docs theme={theme} />} />
-        <Route path="/components" element={<div className="container py-20">Components Page (Coming Soon)</div>} />
-        <Route path="/blocks" element={<div className="container py-20">Blocks Page (Coming Soon)</div>} />
-        <Route path="/charts" element={<div className="container py-20">Charts Page (Coming Soon)</div>} />
-        <Route path="/themes" element={<div className="container py-20">Themes Page (Coming Soon)</div>} />
-        <Route path="/colors" element={<div className="container py-20">Colors Page (Coming Soon)</div>} />
+        <Route path="/components" element={<Components />} />
+        <Route path="/blocks" element={<Blocks />} />
+        <Route path="/charts" element={<Charts />} />
+        <Route path="/themes" element={<Themes />} />
+        <Route path="/colors" element={<Colors />} />
         <Route path="/nike" element={<Nike />} />
+        <Route path="/gym" element={<Gym />} />
+        <Route path="/coffee" element={<CoffeeShop />} />
         <Route path="*" element={<div className="container py-20">404 Not Found</div>} />
       </Routes>
       

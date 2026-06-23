@@ -1,10 +1,11 @@
-/* @import "tailwindcss"; */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layout utilities {
-    .padding{
-        @apply sm:px-16 px-8 sm:py-24 py-12;
-    }  
+.padding {
+    padding: 3rem 2rem;
+}
+
+@media (min-width: 640px) {
+    .padding {
+        padding: 6rem 4rem;
+    }
 }
